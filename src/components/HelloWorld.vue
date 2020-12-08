@@ -30,27 +30,10 @@
                   :disabled="!selectedProducts || !selectedProducts.length"
                 />
               </template>
-
-              <template #right>
-                <FileUpload
-                  mode="basic"
-                  accept="image/*"
-                  :maxFileSize="1000000"
-                  label="Import"
-                  chooseLabel="Import"
-                  class="p-mr-2"
-                />
-                <Button
-                  label="Export"
-                  icon="pi pi-upload"
-                  class="p-button-help"
-                  @click="exportCSV($event)"
-                />
-              </template>
             </Toolbar>
             <DataTable :value="endpoints">
               <Column
-                headerStyle="width: 200px"
+                headerStyle="width: 300px"
                 field="name"
                 header="Endpoint Name"
               ></Column>
