@@ -10,6 +10,7 @@ import ToastService from 'primevue/toastservice';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
+import Toolbar from 'primevue/toolbar';
 
 import 'primevue/resources/themes/saga-blue/theme.css';
 import 'primevue/resources/primevue.min.css';
@@ -28,6 +29,6 @@ app.component('Card', Card);
 app.component('DataTable', DataTable);
 app.component('Column', Column);
 app.component('ColumnGroup', ColumnGroup);
-
+app.component('Toolbar', Toolbar);
 
 app.mount('#app')

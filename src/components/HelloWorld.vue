@@ -1,29 +1,79 @@
 <template>
   <div>
     <div class="p-grid">
-      <div class="p-col-2"></div>
-      <div class="p-col-8">
-        <div>
-          <h3>{{ message }}</h3>
+      <div class="p-col-1"></div>
+      <div class="p-col-10">
+        <div class="p-m-4">
+          <h2>{{ message }}</h2>
         </div>
       </div>
-      <div class="p-col-2"></div>
+      <div class="p-col-1"></div>
     </div>
     <div class="p-grid">
-      <div class="p-col-2"></div>
-      <div class="p-col-8">
-        <Card>
+      <div class="p-col-1"></div>
+      <div class="p-col-10">
+        <Card class="p-shadow-7">
           <template #content>
-            <DataTable :value="cars">
-              <Column field="vin" header="Endpoint Name"></Column>
-              <Column field="year" header="Year"></Column>
-              <Column field="brand" header="Brand"></Column>
-              <Column field="color" header="Color"></Column>
+            <Toolbar class="p-mb-4">
+              <template #left>
+                <Button
+                  label="New"
+                  icon="pi pi-plus"
+                  class="p-button-success p-mr-2"
+                  @click="openNew"
+                />
+                <Button
+                  label="Delete"
+                  icon="pi pi-trash"
+                  class="p-button-danger"
+                  @click="confirmDeleteSelected"
+                  :disabled="!selectedProducts || !selectedProducts.length"
+                />
+              </template>
+
+              <template #right>
+                <FileUpload
+                  mode="basic"
+                  accept="image/*"
+                  :maxFileSize="1000000"
+                  label="Import"
+                  chooseLabel="Import"
+                  class="p-mr-2"
+                />
+                <Button
+                  label="Export"
+                  icon="pi pi-upload"
+                  class="p-button-help"
+                  @click="exportCSV($event)"
+                />
+              </template>
+            </Toolbar>
+            <DataTable :value="endpoints">
+              <Column
+                headerStyle="width: 200px"
+                field="name"
+                header="Endpoint Name"
+              ></Column>
+              <Column field="ownedBy" header="Owned By"></Column>
+              <Column header="Description">
+                <template #body="slotProps">
+                  {{ slotProps.data.description }}
+                  <div>Slack: {{ slotProps.data.slackChannel }}</div>
+                  <div>
+                    <a v-bind:href="slotProps.data.documentation"
+                      >Documentation
+                    </a>
+                  </div>
+                  <div>
+                    <a v-bind:href="slotProps.data.url">API Url </a>
+                  </div>
+                </template>
+              </Column>
             </DataTable>
           </template>
         </Card>
       </div>
-      <div class="p-col-2"></div>
+      <div class="p-col-1"></div>
     </div>
   </div>
 </template>
@@ -41,6 +91,8 @@ export default {
           ownedBy: "Cost Team",
           url: "https://api.openaq.org/v1/countries",
           description: "See history of data update attempts by the platform.",
+          slackChannel: "#channel-1",
+          documentation: "https://jsdoc.app/tags-inline-link.html",
         },
         {
           id: 2,
@@ -48,6 +100,8 @@ export default {
           ownedBy: "Cost Team",
           url: "https://api.openaq.org/v1/fetches",
           description: "See history of data update attempts by the platform.",
+          slackChannel: "#channel-2",
+          documentation: "https://developers.google.com/style/link-text",
         },
       ],
       cars: [
